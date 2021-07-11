@@ -1,0 +1,58 @@
+package main
+
+import (
+	"fmt"
+)
+type Item struct {
+    	nome string
+    	valor  int
+	quantidade int	
+}
+
+func GerarDic(Emails []string, Itens []Item)map[string]int{
+	var Soma = 0
+	m := make(map[string]int)
+	
+	
+	if len(Emails) == 0{
+		fmt.Println("Não possui email(s) cadastrado(s).")
+		
+	}else{
+		for i := 0; i < len(Itens); i++{
+			Soma += Itens[i].valor * Itens[i].quantidade
+	
+	}
+
+	ValorIndividual := Soma / len(Emails)
+	Resto := Soma % len(Emails)
+	
+	for _, email := range Emails{
+		m[email] = ValorIndividual
+	}
+
+	
+	if Resto == 0{
+		return m
+	}else{
+		for _, email := range Emails[:Resto]{
+			m[email] = ValorIndividual + 1
+		}
+	
+	}
+	}
+
+		return m
+}
+
+
+
+func main() {
+	
+	Emails := []string{"Joao@hotmail.com", "Lucas@hotmail.com","Marcelo@hotmail.com"} // slice de Emails
+	
+	s := []Item{{"Feijao", 1, 30},{"Macarrão", 2, 35}} // slice de itens
+	//s = append(s, Item{"Arroz", 2, 10}) --> para inserir um novo Item.
+	
+	fmt.Println(GerarDic(Emails, s))
+	
+}
